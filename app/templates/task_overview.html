@@ -1,0 +1,124 @@
+{% extends "task_base.html" %}
+{% block nav_content %}
+    {% include '_task_nav.html' %}
+{% endblock %}
+
+{% block page_content %}
+    <ul>
+        <li><h4>任务名称</h4></li>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {{ task.name }}
+            </div>
+        </div>
+        <li><h4>任务简介</h4>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ task.description }}
+                </div>
+            </div>
+        </li>
+        <li><h4>任务流程</h4>
+            <div class="panel panel-default">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">任务名称</th>
+                        <th scope="col">是否完成</th>
+                        <th scope="col">任务描述</th>
+                        <th scope="col">撤销</th>
+                        <th scope="col">执行</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">数据接入</th>
+                        <td>{% if  task.confirmed_1 %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                        <td>机器学习原始数据的导入</td>
+                        <td>
+                            <a href="{{ url_for('.cancel_process1', id=task.id) }} " onclick="{if(confirm('撤销此任务流程的同时，会同时撤销之后的所有任务流程，确定撤销吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">撤销</span>
+                        </a>
+                        </td>
+                        <td><a href="{{ url_for('main.process1', id=task.id) }}">
+                            <span class="badge badge-success">执行</span>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">数据预处理</th>
+                        <td>{% if  task.confirmed_2 %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                        <td>对原始数据进行预处理</td>
+                    <td>
+                            <a href="{{ url_for('.cancel_process2', id=task.id) }} " onclick="{if(confirm('撤销此任务流程的同时，会同时撤销之后的所有任务流程，确定撤销吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">撤销</span>
+                        </a>
+                        </td>
+                        <td><a href="{{ url_for('main.process2', id=task.id) }}">
+                            <span class="badge badge-success">执行</span>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">模型选择</th>
+                        <td>{% if  task.confirmed_3 %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                        <td>机器学习算法的选择</td><td>
+                            <a href="{{ url_for('.cancel_process3', id=task.id) }} " onclick="{if(confirm('撤销此任务流程的同时，会同时撤销之后的所有任务流程，确定撤销吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">撤销</span>
+                        </a>
+                        </td>
+                        <td><a href="{{ url_for('main.process3', id=task.id) }}">
+                            <span class="badge badge-success">执行</span>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">模型训练</th>
+                        <td>{% if  task.confirmed_4 %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                        <td>机器学习算法的训练过程</td><td>
+                            <a href="{{ url_for('.cancel_process4', id=task.id) }} " onclick="{if(confirm('撤销此任务流程的同时，会同时撤销之后的所有任务流程，确定撤销吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">撤销</span>
+                        </a>
+                        </td>
+                        <td><a href="{{ url_for('main.process4', id=task.id) }}">
+                            <span class="badge badge-success">执行</span>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">部署与开发</th>
+                        <td>{% if  task.confirmed_5 %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                        <td>机器学习模型的部署与开发</td><td>
+                            <a href="{{ url_for('.cancel_process5', id=task.id) }} " onclick="{if(confirm('确定撤销吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">撤销</span>
+                        </a>
+                        </td>
+                        <td><a href="{{ url_for('main.process5', id=task.id) }}">
+                            <span class="badge badge-success">执行</span>
+                        </a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+    </ul>
+
+
+
+{% endblock %}

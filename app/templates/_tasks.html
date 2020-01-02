@@ -1,0 +1,27 @@
+<ul class="posts">
+    {% for task in tasks %}
+        <li class="post">
+            <div class="post-thumbnail">
+                <a href="{{ url_for('.user', username=task.author.username) }}">
+                    <img class="img-rounded profile-thumbnail" src="{{ task.author.gravatar(size=40) }}">
+                </a>
+            </div>
+            <div class="post-content">
+                <div class="post-date">{{ moment(task.timestamp).fromNow() }}</div>
+                <div class="post-author">{{ task.name }}</div>
+                <div class="post-body">{{ task.description }}</div>
+                <div class="post-footer">
+                    {% if current_user == task.author %}
+                        <a href="{{ url_for('.task_overview', id=task.id) }}">
+                            <span class="label label-default">查看详情</span>
+                        </a>
+                        <a href="{{ url_for('.delete_task', id=task.id) }} " onclick="{if(confirm('确定删除吗?')){this.document.formname.submit();return true;}return false;}">
+                            <span class="label label-danger">删除</span>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,29 @@
+{% extends "task_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block nav_content %}
+    {% include '_task_nav.html' %}
+{% endblock %}
+
+
+
+{% block page_content %}
+    <div class="page-header">
+        <h3>部署与开发</h3>
+    </div>
+    {% if not task.confirmed_5 %}
+        <div>
+            {{ wtf.quick_form(form) }}
+        </div>
+    {% endif %}
+    {% if  task.confirmed_5 %}
+        请点击<a href="{{ url_for('.model', id=task.id) }}">
+        <span class="label label-default">此处</span>
+    </a>或者在浏览器中访问下面链接进行访问
+        <br>
+        <code>127.0.0.1:5000/model/{{ task.id }}</code>    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

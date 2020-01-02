@@ -1,0 +1,146 @@
+{% extends "task_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block nav_content %}
+    {% include '_task_nav.html' %}
+{% endblock %}
+
+
+
+{% block page_content %}
+    <div class="page-header">
+        <h3>数据预处理</h3>
+    </div>
+    <div>
+        {% if not task.confirmed_2 %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center text-primary">
+                            预处理完成
+                        </h3>
+                        <div class="jumbotron">
+                            <a class="btn btn-default" href="{{ url_for('.process2_confirmed', id=task.id) }}"
+                               role="button">
+                                完成预处理
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+                    width="80%"
+                    color=#987cb9 SIZE=1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center text-success">
+                            数据规范化方式
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="jumbotron">
+                                    <h4 class="text-center">
+                                        <b>最大-最小归一化</b>
+                                    </h4>
+                                    {{ wtf.quick_form(form) }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="jumbotron">
+                                    <h4 class="text-center">
+                                        <b>Z-Score标准化</b>
+                                    </h4>
+                                    {{ wtf.quick_form(form2) }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="jumbotron">
+                                    <h4 class="text-center">
+                                        <b>对数变换</b>
+                                    </h4>
+                                    {{ wtf.quick_form(form3) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+                width="80%"
+                color=#987cb9 SIZE=1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center text-warning">
+                        数据清洗方式
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="jumbotron">
+                                <h4 class="text-center">
+                                    <b>缺失值处理</b>
+                                </h4>
+                                <p>功能待添加...</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="jumbotron">
+                                <h4 class="text-center">
+                                    <b>离群点处理</b>
+                                </h4>
+                                <p>功能待添加...</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="jumbotron">
+                                <h4 class="text-center">
+                                    <b>噪声处理</b>
+                                </h4>
+                                <p>功能待添加...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+                width="80%"
+                color=#987cb9 SIZE=1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center text-muted">
+                            数据规约方式
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="jumbotron">
+                                    <h4 class="text-center">
+                                        <b>维度规约</b>
+                                    </h4>
+                                    <p>功能待添加...</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="jumbotron">
+                                    <h4 class="text-center">
+                                        <b>维度变换</b>
+                                    </h4>
+                                    <p>功能待添加...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        {% endif %}
+    {% if task.confirmed_2 %}
+        <h3>管道流</h3>
+        <ul>
+            {% for name in tube_content %}
+                <li><h4>{{ name }}</h4></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

@@ -1,0 +1,241 @@
+{% extends "task_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block nav_content %}
+    {% include '_task_nav.html' %}
+{% endblock %}
+
+
+
+{% block page_content %}
+    <div class="page-header">
+        <h3>模型选择</h3>
+    </div>
+    {% if not task.confirmed_3 %}
+        <div class="well">
+            {{ wtf.quick_form(form) }}
+        </div>
+    {% endif %}
+    {% if  task.confirmed_3 %}
+        {% if task.model == 0 %}
+            <ul>
+                <li>
+                    <h4>模型\算法类型</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ modeltype }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>模型\算法</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ model }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>损失函数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ lossFunction }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>优化函数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ optimizerFunction }}
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <h4>学习率</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.learningRate }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>训练迭代次数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.trainEpochs }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        {% elif task.model==1 %}
+            <ul>
+                <li>
+                    <h4>模型\算法类型</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ modeltype }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>模型\算法</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ model }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>正则系数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.Regular_coefficient }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>内核函数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ kernel }}
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <h4>训练迭代次数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.trainEpochs }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>最小收敛误差</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.Minimum_convergence_error }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        {% elif task.model ==2  %}
+            <ul>
+                <li>
+                    <h4>模型\算法类型</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ modeltype }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>模型\算法</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ model }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>聚类数量</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.n_clusters }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>算法类型</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ algorithm }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>训练重复次数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.n_ints }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>最小收敛误差</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.Minimum_convergence_error }}
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        {% else %}
+            <ul>
+                <li>
+                    <h4>模型\算法类型</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ modeltype }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>模型\算法</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ model }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>损失函数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ lossFunction }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>优化函数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ optimizerFunction }}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <h4>学习率</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.learningRate }}
+                        </div>
+                    </div>
+                </li><li>
+                    <h4>迭代次数</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.trainEpochs }}
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <h4>最小收敛误差</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {{ task.Minimum_convergence_error }}
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

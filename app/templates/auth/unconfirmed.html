@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>
+        您好, {{ current_user.username }}!
+    </h1>
+    <h3>您还没有认证您的邮箱.</h3>
+    <p>
+        您需要先确认您的帐户，然后才能访问该网站。
+        检查您的收件箱，您应该已经收到带有确认链接的电子邮件。
+    </p>
+    <p>
+        需要其他确认电子邮件吗？
+        <a href="{{ url_for('auth.resend_confirmation') }}">点击此处</a>
+    </p>
+</div>
+{% endblock %}

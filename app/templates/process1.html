@@ -1,0 +1,319 @@
+{% extends "task_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block nav_content %}
+    {% include '_task_nav.html' %}
+{% endblock %}
+
+
+
+{% block page_content %}
+    <div class="page-header">
+        <h3>数据接入</h3>
+    </div>
+    {% if  not task.confirmed_databsae %}
+        <h4>创建数据表结构</h4>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form id="calc">
+                    <table cellpadding="0" cellspacing="0" id="myTable" class="table">
+                        <tr>
+                            <th>#</th>
+                            <th>列名</th>
+                            <th>数据类型</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" name="1_1" class="form-control"/></td>
+                            <td>
+                                <select name="1_2" class="form-control">
+                                    <option value="1">float</option>
+                                    <option value="2">int</option>
+                                </select>
+                            </td>
+
+                            <td><input type="hidden" id="reC" value="1"/>
+                                <a class="btn btn-mini btn-warning" onclick="addRows();">增加行</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <datalist id="itemlist">
+                        <option>item1</option>
+                        <option>item2</option>
+                    </datalist>
+
+                    <input class="btn btn-mini btn-danger" type="submit" value="创建数据库">
+                </form>
+            </div>
+        </div>
+
+    {% endif %}
+    {% if task.confirmed_databsae and not task.confirmed_1 %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-center text-primary">
+                                Excel文件格式
+                            </h3>
+                            <br>
+                            <form action="{{ url_for('main.process1', id=task.id) }}" method="post"
+                                  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="file" name="file">
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox"> 仅支持xls文件格式
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox"> 列数限制：大于等于2列，并且小于等于10列
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox"> 文件名不可以包含中文字符
+                                </div>
+                                <div class="form-group">
+                                    <input type=submit value=上传Excel文件>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-center  text-warning">
+                                Txt文件格式
+                            </h3>
+                            <br>
+                            <form action="{{ url_for('main.process1', id=task.id) }}" method="post"
+                                  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="file" name="file">
+                                </div>
+                                <div class="radio">
+                                    <p><b>列分隔符</b></p>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                               checked>
+                                        逗号
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                               checked>
+                                        分号
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                               checked>
+                                        空格
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                                               checked>
+                                        Tab键
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <input type=submit value=上传txt文件>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="text-center text-success">
+                                数据库文件格式
+                            </h3>
+                            <br>
+                            {{ wtf.quick_form(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+    {% if task.confirmed_1 and task.confirmed_databsae %}
+        <ul>
+            <li><h4>文件名称</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ file_name }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <a href="{{ url_for('.downloads_file', id=task.id) }}">
+                            <span class="label label-default">下载文件</span>
+                        </a>
+                    </div>
+
+                </div>
+            </li>
+            <li><h4>文件内容</h4>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table id="example" class="display" style="width:100%">
+                            <thead>
+                            <tr>
+                                {% if ncols ==2 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                {% endif %}
+                                {% if ncols ==3 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                {% endif %}
+                                {% if ncols ==4 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                {% endif %}
+                                {% if ncols ==5 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                {% endif %}
+                                {% if ncols ==6 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                    <th>{{ task.cols_6 }}</th>
+                                {% endif %}
+                                {% if ncols ==7 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                    <th>{{ task.cols_6 }}</th>
+                                    <th>{{ task.cols_7 }}</th>
+                                {% endif %}
+                                {% if ncols ==8 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                    <th>{{ task.cols_6 }}</th>
+                                    <th>{{ task.cols_7 }}</th>
+                                    <th>{{ task.cols_8 }}</th>
+                                {% endif %}
+                                {% if ncols ==9 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                    <th>{{ task.cols_6 }}</th>
+                                    <th>{{ task.cols_7 }}</th>
+                                    <th>{{ task.cols_8 }}</th>
+                                    <th>{{ task.cols_9 }}</th>
+                                {% endif %}
+                                {% if ncols ==10 %}
+                                    <th>{{ task.cols_1 }}</th>
+                                    <th>{{ task.cols_2 }}</th>
+                                    <th>{{ task.cols_3 }}</th>
+                                    <th>{{ task.cols_4 }}</th>
+                                    <th>{{ task.cols_5 }}</th>
+                                    <th>{{ task.cols_6 }}</th>
+                                    <th>{{ task.cols_7 }}</th>
+                                    <th>{{ task.cols_8 }}</th>
+                                    <th>{{ task.cols_9 }}</th>
+                                    <th>{{ task.cols_10 }}</th>
+                                {% endif %}
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "ajax": '../static/json/{{ file_true_name }}.txt', "ordering": false,
+            });
+        });
+
+        function addRows() {
+            //记录总共添加几行
+            document.getElementById("reC").value = parseInt(document.getElementById("reC").value) + 1;//获取中的行数
+
+            //添加一行
+            var i = parseInt(myTable.rows.length);
+
+            var newTr = myTable.insertRow();
+            //添加列
+            var newTd4 = newTr.insertCell();
+            var newTd0 = newTr.insertCell();
+            var newTd1 = newTr.insertCell();
+            var newTd2 = newTr.insertCell();
+            //设置列内容和属性
+
+            newTd4.innerHTML = '<td>' + i + '</td>';
+            newTd0.innerHTML = '<input type="text" name="' + i + '_1" style="width:98%;" title="车型" value="" class="form-control" />';
+            newTd1.innerHTML = '<select  name="' + i + '_2" class="form-control" > <option value="1">float</option> <option value="2">int</option></select>';
+
+            newTd2.innerHTML = '<input type="submit" class="btn btn-mini btn-warning"  value="删除该行" οnclick="deleRow()" id="btnDele' + i + '" />';
+            newTd2.innerHTML = '<a class="btn btn-mini btn-info" onclick="deleRow();" id="btnDele\' + i + \'">删除该行</a>';
+//            saveTableValue();//保存值
+            return false;
+        }
+
+        //删除一行
+        function deleRow() {
+            //获得行索引
+            //两个parentElement分别是TD和TR，rowIndex是TR的属性
+            var cGetRow = window.event.srcElement.parentElement.parentElement.rowIndex;
+            alert("点击了第" + cGetRow);
+            myTable.deleteRow(cGetRow);
+
+//            saveTableValue();//保存值
+            return false;
+        }
+
+        function addSubmit(ev) {
+            ev.preventDefault();
+            $.ajax({
+                method: 'POST',
+                url: {{ url_for('main.process1', id=task.id)|tojson }},
+                data: $(this).serialize()
+            }).done(addShow);
+        }
+
+        function addShow(data) {
+            $('#result').text(data.result);
+        }
+
+        $('#calc').on('submit', addSubmit);
+    </script>
+{% endblock %}

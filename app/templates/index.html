@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}机器学习自助建模平台{% endblock %}
+
+{% block page_content %}
+    {#    {{ url_for('static', filename='test.jpg') }}#}
+
+    {#    <div class="page-header">#}
+    {#        <h1>{% if current_user.is_authenticated %}欢迎您！ {% else %}请登陆{% endif %}</h1>#}
+    {#    </div>#}
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" style="text-align:center">
+            <div class="item active">
+                <img alt="First slide" src="{{ url_for('static', filename='ml1.jpg') }}"></img>
+            </div>
+            <div class="item">
+                <img alt="Second slide" src="{{ url_for('static', filename='ml2.jpg') }}"></img>
+            </div>
+            <div class="item">
+                <img alt="Third slide" src="{{ url_for('static', filename='ml3.jpeg') }}"></img>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="80%"
+        color=#987cb9 SIZE=1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">
+                    <b>平台简介</b>
+                </h3>
+                <div class="jumbotron card card-block">
+                    <p>
+                        机器学习自助建模平台是南京航空航天大学计算机科学与技术学院软件工程专业《综合训练和软件工程课程设计》的课程题目。主要参考
+                        <a href="https://data.aliyun.com/product/learn">阿里云PAI平台</a>的技术思路实现。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="80%"
+        color=#987cb9 SIZE=1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">
+                    <b>平台优势</b>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" alt="Bootstrap Thumbnail First"
+                             src="{{ url_for('static', filename='AI1.jpg') }}"/>
+                        <div class="card-block">
+                            <h5 class="card-title">
+                                <b>自动学习</b>
+                            </h5>
+                            <p class="card-text">
+                                该建模平台拟在为用户提供低门槛的偏场景化的机器学习建模服务，用户只需要在产品中做些基础的配置，无需对机器学习建模理论有深入的了解即可完成模型训练。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" alt="Bootstrap Thumbnail Second"
+                             src="{{ url_for('static', filename='AI2.jpeg') }}"/>
+                        <div class="card-block">
+                            <h5 class="card-title">
+                                <b>多样化数据接入</b>
+                            </h5>
+                            <p class="card-text">
+                                该建模平台提供多样化的数据接入方式，包括txt、excel数据格式以及数据库连接形式，满足用户多样化的需求
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top" alt="Bootstrap Thumbnail Third"
+                             src="{{ url_for('static', filename='AI3.jpg') }}"/>
+                        <div class="card-block">
+                            <h5 class="card-title">
+                                <b>在线服务部署</b>
+                            </h5>
+                            <p class="card-text">
+                                在线服务引擎提供了机器学习模型在线服务功能，用户可以将生成的模型一键式的发布到服务器形成Restful服务，通过Restful服务与用户自己业务系统打通，解决模型和客户业务最后一公里的问题。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}

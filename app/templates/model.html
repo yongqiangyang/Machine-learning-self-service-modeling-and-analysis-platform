@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}机器学习自助建模平台{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h3>{{ user.username }} : {{ model_name }} 在线模型演示</h3>
+        <h4>{{ task.name }}</h4>
+    </div>
+    <form class="form-inline" id="calc">
+        <div class="form-group">
+
+            {% for i in range(task.cols_num) %}
+                {% if i != task.target_column - 1 %}
+                    {% if i ==0 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_1 }}</div>
+                            <input type="text" class="form-control" name="1">
+                        </div>
+                        <br>
+                    {% elif i==1 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_2 }}</div>
+                            <input type="text" class="form-control" name="2">
+                        </div>
+                        <br>
+                    {% elif i==2 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_3 }}</div>
+                            <input type="text" class="form-control" name="3">
+                        </div>
+                        <br>
+                    {% elif i==3 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_4 }}</div>
+                            <input type="text" class="form-control" name="4">
+                        </div>
+                        <br>
+                    {% elif i==4 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_5 }}</div>
+                            <input type="text" class="form-control" name="5">
+                        </div>
+                        <br>
+                    {% elif i==5 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_6 }}</div>
+                            <input type="text" class="form-control" name="6">
+                        </div>
+                        <br>
+                    {% elif i==6 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_7 }}</div>
+                            <input type="text" class="form-control" name="7">
+                        </div>
+                        <br>
+                    {% elif i==7 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_8 }}</div>
+                            <input type="text" class="form-control" name="8">
+                        </div>
+                        <br>
+                    {% elif i==8 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_9 }}</div>
+                            <input type="text" class="form-control" name="9">
+                        </div>
+                        <br>
+                    {% elif i==9 %}
+                        <div class="input-group">
+                            <div class="input-group-addon">{{ task.cols_10 }}</div>
+                            <input type="text" class="form-control" name="10">
+                        </div>
+                        <br>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+        </div>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary" value="Calculate">预测</button>
+        <input type="hidden" type="text" name="b" value="{{ task.model_filepath }}">
+        <input type="hidden" type="text" name="process2" value="{{ task.process2 }}">
+        <input type="hidden" type="text" name="cols_num" value="{{ task.cols_num }}">
+        <input type="hidden" type="text" name="target_column" value="{{ task.target_column }}">
+        <input type="hidden" type="text" name="model" value="{{ task.model }}">
+        <input type="hidden" type="text" name="data_filepath" value="{{ task.data_filepath }}">
+        <input type="hidden" type="text" name="confirmed_databsae_col_name" value="{{ task.confirmed_databsae_col_name }}">
+
+        <input type="hidden" type="text" name="process2_normalized_1" value="{{ task.process2_normalized_1 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_1" value="{{ task.process2_normalized_max_1 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_1" value="{{ task.process2_normalized_min_1 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_2" value="{{ task.process2_normalized_2 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_2" value="{{ task.process2_normalized_max_2 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_2" value="{{ task.process2_normalized_min_2 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_3" value="{{ task.process2_normalized_3 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_3" value="{{ task.process2_normalized_max_3 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_3" value="{{ task.process2_normalized_min_3 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_4" value="{{ task.process2_normalized_4 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_4" value="{{ task.process2_normalized_max_4 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_4" value="{{ task.process2_normalized_min_4 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_5" value="{{ task.process2_normalized_5 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_5" value="{{ task.process2_normalized_max_5 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_5" value="{{ task.process2_normalized_min_5 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_6" value="{{ task.process2_normalized_6 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_6" value="{{ task.process2_normalized_max_6 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_6" value="{{ task.process2_normalized_min_6 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_7" value="{{ task.process2_normalized_7 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_7" value="{{ task.process2_normalized_max_7 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_7" value="{{ task.process2_normalized_min_7 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_8" value="{{ task.process2_normalized_8 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_8" value="{{ task.process2_normalized_max_8 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_8" value="{{ task.process2_normalized_min_8 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_9" value="{{ task.process2_normalized_9 }}">
+        <input type="hidden" type="text" name="process2_normalized_max_9" value="{{ task.process2_normalized_max_9 }}">
+        <input type="hidden" type="text" name="process2_normalized_min_9" value="{{ task.process2_normalized_min_9 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_1" value="{{ task.process2_normalized_zscore_1 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_1" value="{{ task.process2_normalized_zscore_mean_1 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_1" value="{{ task.process2_normalized_zscore_std_1 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_2" value="{{ task.process2_normalized_zscore_2 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_2" value="{{ task.process2_normalized_zscore_mean_2 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_2" value="{{ task.process2_normalized_zscore_std_2 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_3" value="{{ task.process2_normalized_zscore_3 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_3" value="{{ task.process2_normalized_zscore_mean_3 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_3" value="{{ task.process2_normalized_zscore_std_3 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_4" value="{{ task.process2_normalized_zscore_4 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_4" value="{{ task.process2_normalized_zscore_mean_4 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_4" value="{{ task.process2_normalized_zscore_std_4 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_5" value="{{ task.process2_normalized_zscore_5 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_5" value="{{ task.process2_normalized_zscore_mean_5 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_5" value="{{ task.process2_normalized_zscore_std_5 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_6" value="{{ task.process2_normalized_zscore_6 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_6" value="{{ task.process2_normalized_zscore_mean_6 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_6" value="{{ task.process2_normalized_zscore_std_6 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_7" value="{{ task.process2_normalized_zscore_7 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_7" value="{{ task.process2_normalized_zscore_mean_7 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_7" value="{{ task.process2_normalized_zscore_std_7 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_8" value="{{ task.process2_normalized_zscore_8 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_8" value="{{ task.process2_normalized_zscore_mean_8 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_8" value="{{ task.process2_normalized_zscore_std_8 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_zscore_9" value="{{ task.process2_normalized_zscore_9 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_mean_9" value="{{ task.process2_normalized_zscore_mean_9 }}">
+        <input type="hidden" type="text" name="process2_normalized_zscore_std_9" value="{{ task.process2_normalized_zscore_std_9 }}">
+
+        <input type="hidden" type="text" name="process2_normalized_log_1" value="{{ task.process2_normalized_log_1 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_2" value="{{ task.process2_normalized_log_2 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_3" value="{{ task.process2_normalized_log_3 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_4" value="{{ task.process2_normalized_log_4 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_5" value="{{ task.process2_normalized_log_5 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_6" value="{{ task.process2_normalized_log_6 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_7" value="{{ task.process2_normalized_log_7 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_8" value="{{ task.process2_normalized_log_8 }}">
+        <input type="hidden" type="text" name="process2_normalized_log_9" value="{{ task.process2_normalized_log_9 }}">
+    </form>
+    <br>
+    {% if task.modeltype !=2 %}
+        {% if task.target_column ==1 %}
+            <h4>{{ task.cols_1 }}</h4>
+        {% elif task.target_column==2 %}
+            <h4>{{ task.cols_2 }}</h4>
+        {% elif task.target_column==3 %}
+            <h4>{{ task.cols_3 }}</h4>
+        {% elif task.target_column==4 %}
+            <h4>{{ task.cols_4 }}</h4>
+        {% elif task.target_column==5 %}
+            <h4>{{ task.cols_5 }}</h4>
+        {% elif task.target_column==6 %}
+            <h4>{{ task.cols_6 }}</h4>
+        {% elif task.target_column==7 %}
+            <h4>{{ task.cols_7 }}</h4>
+        {% elif task.target_column==8 %}
+            <h4>{{ task.cols_8 }}</h4>
+        {% elif task.target_column==9 %}
+            <h4>{{ task.cols_9 }}</h4>
+        {% elif task.target_column==10 %}
+            <h4>{{ task.cols_10 }}</h4>
+        {% endif %}
+    {% else %}
+        <h4>聚类结果</h4>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <samp>
+                <span id="result"></span>
+            </samp>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+
+        function predict(ev) {
+            ev.preventDefault();
+            $.ajax({
+                method: 'POST',
+                url: {{ url_for('main.predict')|tojson }},
+                data: $(this).serialize()
+            }).done(addShow);
+        }
+
+        function addShow(data) {
+            $('#result').text(data.result);
+        }
+
+        $('#calc').on('submit', predict);
+    </script>
+{% endblock %}

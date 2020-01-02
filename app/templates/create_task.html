@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}机器学习自助建模平台{% endblock %}
+
+{% block page_content %}
+    {#    {{ url_for('static', filename='test.jpg') }}#}
+    <div class="page-header">
+        <h1>{% if current_user.is_authenticated %}请创建您的机器学习任务！ {% else %}请登陆{% endif %}</h1>
+    </div>
+    <div>
+    <div class="well">
+        {% if current_user.can(Permission.WRITE) %}
+            {{ wtf.quick_form(form) }}
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}
